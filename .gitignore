@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project-specific directories
+data/refugees_migration/
+notebooks/
+
+# Project-specific files
