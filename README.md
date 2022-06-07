@@ -38,7 +38,7 @@ Run the code
 scrapy crawl $OUTLET
 ```
 
-### Creating a dataset from scraped articles
+<!-- ### Creating a dataset from scraped articles
 ```
 python preprocess_data 
 
@@ -51,7 +51,7 @@ optional arguments:
 --drop_news_ticker                          Indicate whether to drop news tickers (i.e. articles with more than a predefined number of subheaders) from the dataset (default: True)
 --subheaders_threshold                      Minimum number of subheaders an article should have to be considered a news ticker (default: 10)
 --drop_articles_with_forbidden_patterns     Indicate whether to drop articles containing a predefined regular expression from the dataset (default: True)
-```
+``` -->
 
 <!-- ## Data
 A sample of the raw and processed news corpus constructed for the topic *refugees and migration* is available in `data/dataset` folder. Due to copyright policies, this sample does not contain the abstract and body of the articles. 
