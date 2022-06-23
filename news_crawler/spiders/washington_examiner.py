@@ -17,7 +17,7 @@ class WashingtonExaminerSpider(BaseSpider):
     name = 'washington_examiner'
     rotate_user_agent = True
     allowed_domains = ['https://www.washingtonexaminer.com']
-    start_urls = ['https://https://www.washingtonexaminer.com']
+    start_urls = ['https://www.washingtonexaminer.com']
 
     # Exclude irelevant pages
     rules = (
