@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'news_crawler.spiders'
 
 # Run spider until item count or timeout
 CLOSESPIDER_ITEMCOUNT = 200 
-CLOSESPIDER_TIMEOUT = 3600*24*7 
+CLOSESPIDER_TIMEOUT = 3600*24*10 
 
 # Project-specific variables
 TOPIC = 'refugees_migration'
