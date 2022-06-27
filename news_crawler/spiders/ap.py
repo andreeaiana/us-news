@@ -16,8 +16,8 @@ class APSpider(BaseSpider):
     """ Spider for AP """
     name = 'ap'
     rotate_user_agent = True
-    allowed_domains = ['apnews.com/']
-    start_urls = ['https://apnews.com/']
+    allowed_domains = ['apnews.com']
+    start_urls = ['https://apnews.com']
 
     # Exclude irelevant pages
     rules = (
