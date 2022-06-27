@@ -64,7 +64,11 @@ class ProPublicaSpider(BaseSpider):
         creation_date = response.xpath('//time[@class="timestamp"]/@datetime').get()
         if not creation_date:
             return
-        creation_date = datetime.fromisoformat(creation_date.split('EDT')[0])
+        try:
+            creation_date = datetime.fromisoformat(creation_date.split('EDT')[0])
+        except:
+            creation_date = datetime.fromisoformat(creation_date.split('EST')[0])
+            
         if self.is_out_of_date(creation_date):
             return
 
