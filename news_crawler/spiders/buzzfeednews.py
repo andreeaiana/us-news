@@ -42,10 +42,10 @@ class BuzzfeednewsSpider(BaseSpider):
         creation_date = response.xpath('//span[contains(@class, "headline-timestamp_timestampNews")]/time/@datetime').get()
         if not creation_date:
             creation_date = response.xpath('//div/p[@class="news-article-header__timestamps-posted"]/text()').get()
-            creation_date = creation_date.strip().split('Posted on ')[1].split(', at')[0]
             if not creation_date:
                 return
             else:
+                creation_date = creation_date.strip().split('Posted on ')[1].split(', at')[0]
                 creation_date = datetime.strptime(creation_date, '%B %d, %Y')
         else:
             creation_date = datetime.fromisoformat(creation_date.split('T')[0])
