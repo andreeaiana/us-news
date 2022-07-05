@@ -16,7 +16,7 @@ class MSNBCSpider(BaseSpider):
     name = 'msnbc'
     rotate_user_agent = True
     allowed_domains = ['www.msnbc.com']
-    start_urls = ['https://edition.cnn.com']
+    start_urls = ['https://www.msnbc.com']
 
     # Exclude irelevant pages
     rules = (
