@@ -15,7 +15,7 @@ class ViceSpider(BaseSpider):
     """ Spider for Vice """
     name = 'vice'
     rotate_user_agent = True
-    allowed_domains = ['www.vice.com/en']
+    allowed_domains = ['www.vice.com']
     start_urls = ['https://www.vice.com/en']
 
     # Exclude irelevant pages
