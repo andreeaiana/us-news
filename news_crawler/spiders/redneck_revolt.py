@@ -22,7 +22,7 @@ class RedneckRevoltSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r'www\.redneckrevolt\.org\/single-post\/\d+\/\d+\/\d+\/\w.*$'),
+                    allow=(r'www\.redneckrevolt\.org\/\w.*$'),
                     deny=(
                         r'www\.redneckrevolt\.org\/about',
                         r'www\.redneckrevolt\.org\/principles',
