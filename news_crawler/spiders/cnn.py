@@ -22,7 +22,7 @@ class CNNSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r'edition\.cnn\.com\/\d+\/\d+\/\d+\/\w.*\.html$'),
+                    allow=(r'edition\.cnn\.com\/\w.*$'),
                     deny=(
                         r'edition\.cnn\.com\/sitemap\.html',
                         r'edition\.cnn\.com\/audio',

@@ -22,9 +22,17 @@ class InterceptSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r''),
+                    allow=(r'theintercept\.com\/\d+\/\d+\/\d+\/\w.*$'),
                     deny=(
-                        r'',
+                        r'theintercept\.com\/about\/',
+                        r'theintercept\.com\/source\/',
+                        r'theintercept\.com\/podcasts\/',
+                        r'theintercept\.com\/videos\/',
+                        r'theintercept\.com\/documents\/',
+                        r'theintercept\.com\/policies-and-reports\/',
+                        r'theintercept\.com\/newsletter\/',
+                        r'theintercept\.com\/privacy-policy\/',
+                        r'theintercept\.com\/terms-use\/'
                         )
                     ),
                 callback='parse_item',
