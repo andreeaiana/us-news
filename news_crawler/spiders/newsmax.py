@@ -22,7 +22,7 @@ class NewsmaxSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r'www\.newsmax\.com\/\w.*\/\w.*$'),
+                    allow=(r'www\.newsmax\.com\/\w.*$'),
                     deny=(
                         r'www\.newsmax\.com\/contact\/',
                         r'www\.newsmax\.com\/rss\/',
