@@ -22,7 +22,7 @@ class TruthdigSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r'www\.truthdig\.com\/articles\/\w.*$'),
+                    allow=(r'www\.truthdig\.com\/\w.*$'),
                     deny=(
                         r'www\.truthdig\.com\/about-us\/',
                         r'www\.truthdig\.com\/events\/',
@@ -50,7 +50,7 @@ class TruthdigSpider(BaseSpider):
             return
 
         # Extract the article's paragraphs
-        paragraphs = [node.xpath('string()').get().strip() for node in response.xpath('//div[contains(@class, "article-item__content")]/p[not(@*)]')]
+        paragraphs = [node.xpath('string()').get().strip() for node in response.xpath('//div[contains(@class, "article-item__content")]/p[not(@*)] | //blockquote/p[not(@*)] | //div/p[@data-pp-blocktype="copy"]')]
         paragraphs = remove_empty_paragraphs(paragraphs)
         text = ' '.join([para for para in paragraphs])
 
@@ -77,18 +77,31 @@ class TruthdigSpider(BaseSpider):
         item['crawl_date'] = datetime.now().strftime('%d.%m.%Y')
 
         # Get authors
-        authors = response.xpath('//h5[@class="people__name people__name--no-divider"]/text()').get()
+        authors = response.xpath('//h5[@class="people__name people__name--no-divider"]/text() | //h5[contains(@class, "people__name")]/a/text()').getall()
         if authors:
-            authors = authors.strip()
-            if ' and ' in authors:
-                item['author_person'] = authors.split(' and ')
-                item['author_organization'] = list()
-            elif ' / ' in authors:
-                item['author_person'] = [authors.split(' / ')[0]]
-                item['author_organization'] = [authors.split(' / ')[-1]]
+            authors = [author.strip() for author in authors]
+            authors = [author for author in authors if author != '']
+ 
+            author_person = authors[0]
+            author_organization = [authors[-1].lstrip('/').strip()] if len(authors) == 2 else list()
+            
+            author_person = author_person.split(' and ') if ' and ' in author_person else [author_person]
+            if author_organization:
+                item['author_person'] = [author.rstrip('/').strip() for author in author_person]
+                item['author_organization'] = author_organization
             else:
-                item['author_person'] = [authors]
-                item['author_organization'] = list()
+                processed_author_person = list()
+                for author in author_person:
+                    if not '/' in author:
+                        processed_author_person.append(author)
+                    else:
+                        person, organization = author.split('/') 
+                        if person != '':
+                            processed_author_person.append(person.strip())
+                        if organization != '':
+                            author_organization.append(organization.strip())
+                item['author_person'] = processed_author_person
+                item['author_organization'] = author_organization
         else:
             item['author_person'] = list()
             item['author_organization'] = list()
@@ -109,7 +122,7 @@ class TruthdigSpider(BaseSpider):
             headlines = [h2.xpath('string()').get().strip() for h2 in response.xpath('//h2[not(@*)]')]
 
             # Extract paragraphs with headlines
-            text = [node.xpath('string()').get().strip() for node in response.xpath('//div[contains(@class, "article-item__content")]/p[not(@*)] | //h2[not(@*)]')]
+            text = [node.xpath('string()').get().strip() for node in response.xpath('//div[contains(@class, "article-item__content")]/p[not(@*)] | //blockquote/p[not(@*)] | //div/p[@data-pp-blocktype="copy"] | //h2[not(@*)]')]
 
             # Extract paragraphs between the abstract and the first headline
             body[''] = remove_empty_paragraphs(text[:text.index(headlines[0])])

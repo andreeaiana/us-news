@@ -22,7 +22,7 @@ class CommonDreamsSpider(BaseSpider):
     rules = (
             Rule(
                 LinkExtractor(
-                    allow=(r'www\.commondreams\.org\/\w.*\/\d+\/\d+\/\d+\/\w.*$'),
+                    allow=(r'www\.commondreams\.org\/\w.*$'),
                     deny=(
                         r'www\.commondreams\.org\/about-us',
                         r'www\.commondreams\.org\/key-staff',
